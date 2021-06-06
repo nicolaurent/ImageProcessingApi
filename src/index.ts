@@ -7,5 +7,7 @@ const port = 3000;
 app.use('/api', routes);
 
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+  console.log(`server started at http://localhost:${port}/api`);
 });
+
+export default app;

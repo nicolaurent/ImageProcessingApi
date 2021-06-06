@@ -15,7 +15,7 @@ imagesRoute.get('/', async (req, res) => {
     );
     res.status(200).sendFile(outputPath);
   } catch (err) {
-    res.status(404).send('Input file is missing');
+    res.status(400).send('Input file is missing');
   }
 });
 

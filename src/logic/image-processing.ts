@@ -1,8 +1,9 @@
 import sharp from 'sharp';
 import fs from 'fs';
+import path from 'path';
 
-const imageDir = process.cwd() + '/images/full/';
-const thumbnailDir = process.cwd() + '/images/thumb/';
+const imageDir = path.join(__dirname, '../../images/full/');
+const thumbnailDir = path.join(__dirname, '../../images/thumb/')
 
 const processRequest = async (
   filename: string,
@@ -10,7 +11,6 @@ const processRequest = async (
   width: number
 ) => {
   const outputFilePath = thumbnailDir + filename + '_thumb.jpg';
-  console.log('outputFilePath: ' + outputFilePath);
 
   // If thumbnail is already created, skip image conversion
   if (!checkFileExist(outputFilePath)) {
@@ -28,7 +28,6 @@ const convertImage = async (
   outputFilePath: string
 ) => {
   const imagePath = imageDir + filename + '.jpg';
-  console.log('imagePath: ' + imagePath);
 
   await sharp(imagePath)
     .resize(width, height)
@@ -53,4 +52,4 @@ const createThumbnailFolder = async () => {
   }
 };
 
-export default { processRequest };
+export default { processRequest, convertImage, checkFileExist, createThumbnailFolder };
