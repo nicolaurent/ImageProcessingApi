@@ -9,7 +9,7 @@ const processRequest = async (
   filename: string,
   height: number,
   width: number
-) => {
+):Promise<string> => {
   const outputFilePath = thumbnailDir + filename + '_thumb.jpg';
 
   // If thumbnail is already created, skip image conversion
@@ -26,7 +26,7 @@ const convertImage = async (
   height: number,
   width: number,
   outputFilePath: string
-) => {
+):Promise<void> => {
   const imagePath = imageDir + filename + '.jpg';
 
   await sharp(imagePath)
@@ -39,17 +39,17 @@ const convertImage = async (
     .toBuffer();
 };
 
-const checkFileExist = (outputFilePath: string) => {
+const checkFileExist = (outputFilePath: string):boolean => {
   if (fs.existsSync(outputFilePath)) {
     return true;
   }
   return false;
 };
 
-const createThumbnailFolder = async () => {
+const createThumbnailFolder = async ():Promise<void> => {
   if (!fs.existsSync(thumbnailDir)) {
     await fs.promises.mkdir(thumbnailDir);
   }
 };
 
-export default { processRequest, convertImage, checkFileExist, createThumbnailFolder };
+export default { processRequest, convertImage, checkFileExist, createThumbnailFolder, thumbnailDir };
