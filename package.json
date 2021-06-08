@@ -9,8 +9,7 @@
     "jasmine": "jasmine",
     "build": "npx tsc",
     "test": "npm run build && npm run jasmine",
-    "start": "nodemon src/index.ts",
-    "copy:asset": "cpx images/** build/images"
+    "start": "nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",

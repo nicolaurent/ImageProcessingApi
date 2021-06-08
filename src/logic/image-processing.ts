@@ -3,13 +3,13 @@ import fs from 'fs';
 import path from 'path';
 
 const imageDir = path.join(__dirname, '../../images/full/');
-const thumbnailDir = path.join(__dirname, '../../images/thumb/')
+const thumbnailDir = path.join(__dirname, '../../images/thumb/');
 
 const processRequest = async (
   filename: string,
   height: number,
   width: number
-):Promise<string> => {
+): Promise<string> => {
   const outputFilePath = thumbnailDir + filename + '_thumb.jpg';
 
   // If thumbnail is already created, skip image conversion
@@ -26,30 +26,36 @@ const convertImage = async (
   height: number,
   width: number,
   outputFilePath: string
-):Promise<void> => {
+): Promise<void> => {
   const imagePath = imageDir + filename + '.jpg';
 
   await sharp(imagePath)
     .resize(width, height)
-    .toFile(outputFilePath, (err) => {
+    .toFile(outputFilePath, (err: Error): void => {
       if (err) {
-        console.log(err);
+        throw err;
       }
     })
     .toBuffer();
 };
 
-const checkFileExist = (outputFilePath: string):boolean => {
+const checkFileExist = (outputFilePath: string): boolean => {
   if (fs.existsSync(outputFilePath)) {
     return true;
   }
   return false;
 };
 
-const createThumbnailFolder = async ():Promise<void> => {
+const createThumbnailFolder = async (): Promise<void> => {
   if (!fs.existsSync(thumbnailDir)) {
     await fs.promises.mkdir(thumbnailDir);
   }
 };
 
-export default { processRequest, convertImage, checkFileExist, createThumbnailFolder, thumbnailDir };
+export default {
+  processRequest,
+  convertImage,
+  checkFileExist,
+  createThumbnailFolder,
+  thumbnailDir,
+};
