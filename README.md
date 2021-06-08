@@ -20,7 +20,7 @@ There are 2 ways to run the server
 
 1. Build project and run js file
 
-In root directory
+In root directory, run the follwing
   ```
   npm run build
   ```
