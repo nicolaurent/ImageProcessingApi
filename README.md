@@ -20,7 +20,7 @@ There are 2 ways to run the server
 
 1. Build project and run js file
 
-In root directory, run the follwing
+In root directory, run the following
   ```
   npm run build
   ```
@@ -29,8 +29,9 @@ In root directory, run the follwing
   node .
   ```
 
-2. Use nodemon to run
-In root directory
+2. Use nodemon
+
+In root directory, run the following
   ```
   npm run start
   ```
