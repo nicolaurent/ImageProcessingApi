@@ -7,7 +7,13 @@ describe('Test Image Processing', () => {
     const width = 200;
     const height = 200;
     const expectedOutputPath =
-      imageProcessing.thumbnailDir + filename + '_thumb.jpg';
+      imageProcessing.thumbnailDir +
+      filename +
+      '_thumb_' +
+      width.toString() +
+      '_' +
+      height.toString() +
+      '.jpg';
 
     it('Check return string outputpath', async () => {
       const outputFilePath = await imageProcessing.processRequest(
@@ -27,11 +33,13 @@ describe('Test Image Processing', () => {
     const filename = 'encenadaport';
     const width = 200;
     const height = 200;
-    const outputFilePath = 'dummy_thumb.jpg';
+    const imagePath = imageProcessing.imageDir + filename + '.jpg';
+    const outputFilePath =
+      'dummy_thumb_' + width.toString() + '_' + height.toString() + '.jpg';
 
     it('convert image into thumbnail', async () => {
       await imageProcessing.convertImage(
-        filename,
+        imagePath,
         height,
         width,
         outputFilePath

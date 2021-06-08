@@ -10,25 +10,36 @@ const processRequest = async (
   height: number,
   width: number
 ): Promise<string> => {
-  const outputFilePath = thumbnailDir + filename + '_thumb.jpg';
+  const outputFilePath =
+    thumbnailDir +
+    filename +
+    '_thumb_' +
+    width.toString() +
+    '_' +
+    height.toString() +
+    '.jpg';
+  const imagePath = imageDir + filename + '.jpg';
+
+  // Check input image exist
+  if (!checkFileExist(imagePath)) {
+    throw new Error('input image is not found');
+  }
 
   // If thumbnail is already created, skip image conversion
   if (!checkFileExist(outputFilePath)) {
     createThumbnailFolder();
-    await convertImage(filename, height, width, outputFilePath);
+    await convertImage(imagePath, height, width, outputFilePath);
   }
 
   return outputFilePath;
 };
 
 const convertImage = async (
-  filename: string,
+  imagePath: string,
   height: number,
   width: number,
   outputFilePath: string
 ): Promise<void> => {
-  const imagePath = imageDir + filename + '.jpg';
-
   await sharp(imagePath)
     .resize(width, height)
     .toFile(outputFilePath, (err: Error): void => {
@@ -58,4 +69,5 @@ export default {
   checkFileExist,
   createThumbnailFolder,
   thumbnailDir,
+  imageDir,
 };
